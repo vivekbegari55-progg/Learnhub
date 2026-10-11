@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <title>LearnHub | Learn Without Limits</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1020;
+      color: #f5f7ff;
+      line-height: 1.6;
+    }
+    header {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 18px 7%;
+      border-bottom: 1px solid #252d42;
+      position: sticky; top: 0; background: #0b1020;
+    }
+    .logo { font-size: 23px; font-weight: 800; color: #8b9cff; }
+    nav a { color: #dce2f4; text-decoration: none; margin-left: 18px; }
+    .hero { padding: 76px 7% 60px; text-align: center; }
+    .tag {
+      color: #a8b5ff; background: #1b2442; padding: 7px 14px;
+      border-radius: 30px; display: inline-block; font-size: 13px;
+    }
+    h1 { font-size: clamp(36px, 7vw, 64px); line-height: 1.12; margin: 22px 0; }
+    h1 span { color: #91a2ff; }
+    .hero p { max-width: 590px; margin: 0 auto 26px; color: #aab4cb; }
+    .button {
+      background: #8194ff; color: #10162c; padding: 12px 20px;
+      border: 0; border-radius: 10px; font-weight: 750;
+      text-decoration: none; cursor: pointer; display: inline-block;
+    }
+    section { padding: 38px 7% 65px; }
+    .section-head { margin-bottom: 24px; }
+    .section-head p { color: #aab4cb; margin-top: 5px; }
+    .search {
+      width: 100%; padding: 14px; border-radius: 10px;
+      border: 1px solid #303a53; background: #11182b;
+      color: white; margin-bottom: 22px; font-size: 16px;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .course {
+      background: #121a2e; border: 1px solid #28334d;
+      border-radius: 16px; overflow: hidden;
+    }
+    .course-art {
+      min-height: 125px; display: grid; place-items: center;
+      font-size: 45px; background: linear-gradient(135deg, #26386b, #412d67);
+    }
+    .course-content { padding: 19px; }
+    .pill {
+      color: #b8c4ff; background: #242f50; border-radius: 6px;
+      padding: 3px 8px; font-size: 12px;
+    }
+    .course h3 { margin: 12px 0 5px; }
+    .course p { color: #aab4cb; font-size: 14px; }
+    .course button { margin-top: 17px; width: 100%; }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-top: 25px;
+    }
+    .stat { padding: 18px 8px; text-align: center; background: #121a2e; border-radius: 12px; }
+    .stat strong { display: block; font-size: 24px; color: #9cacff; }
+    .stat span { font-size: 12px; color: #aab4cb; }
+    #dashboard { display: none; }
+    .progress { height: 8px; background: #303a53; border-radius: 8px; margin-top: 10px; overflow: hidden; }
+    .progress div { height: 100%; width: 0; background: #91a2ff; transition: width .3s; }
+    footer { padding: 28px 7%; text-align: center; color: #9aa6bd; border-top: 1px solid #252d42; }
+    @media(max-width: 500px) {
+      header { padding: 14px 5%; }
+      nav a { margin-left: 9px; font-size: 13px; }
+      .hero { padding-top: 55px; }
+      section { padding-left: 5%; padding-right: 5%; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">LearnHub.</div>
+    <nav>
+      <a href="#courses">Courses</a>
+      <a href="#dashboard" onclick="showDashboard(event)">My Learning</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <span class="tag">✦ YOUR NEXT CHAPTER STARTS HERE</span>
+      <h1>Learn skills.<br><span>Build your future.</span></h1>
+      <p>Explore practical courses, test your knowledge, and track your learning journey in one place.</p>
+      <a class="button" href="#courses">Explore Courses ↓</a>
+    </div>
+
+    <section id="courses">
+      <div class="section-head">
+        <h2>Explore Courses</h2>
+        <p>Find your next skill and start learning.</p>
+      </div>
+      <input id="search" class="search" type="search" placeholder="🔎 Search courses..." oninput="filterCourses()">
+      <div class="grid" id="courseGrid">
+        <article class="course" data-search="html web development beginner">
+          <div class="course-art">🌐</div>
+          <div class="course-content">
+            <span class="pill">BEGINNER</span>
+            <h3>HTML & Web Basics</h3>
+            <p>Learn how websites are structured and built.</p>
+            <button class="button" onclick="enroll('HTML & Web Basics')">Start Learning</button>
+          </div>
+        </article>
+        <article class="course" data-search="javascript programming coding">
+          <div class="course-art">⚡</div>
+          <div class="course-content">
+            <span class="pill">INTERMEDIATE</span>
+            <h3>JavaScript Essentials</h3>
+            <p>Make websites interactive with programming.</p>
+            <button class="button" onclick="enroll('JavaScript Essentials')">Start Learning</button>
+          </div>
+        </article>
+        <article class="course" data-search="python coding beginner">
+          <div class="course-art">🐍</div>
+          <div class="course-content">
+            <span class="pill">BEGINNER</span>
+            <h3>Python Programming</h3>
+            <p>Explore coding, logic and automation.</p>
+            <button class="button" onclick="enroll('Python Programming')">Start Learning</button>
+          </div>
+        </article>
+        <article class="course" data-search="sql database data">
+          <div class="course-art">🗄️</div>
+          <div class="course-content">
+            <span class="pill">BEGINNER</span>
+            <h3>SQL & Databases</h3>
+            <p>Store, query and organize useful data.</p>
+            <button class="button" onclick="enroll('SQL & Databases')">Start Learning</button>
+          </div>
+        </article>
+      </div>
+      <p id="empty" style="display:none;color:#aab4cb;margin-top:18px;">No matching courses found.</p>
+    </section>
+
+    <section id="dashboard">
+      <div class="section-head">
+        <h2>My Learning 📚</h2>
+        <p>Your enrolled courses and progress.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="total">0</strong><span>Enrolled courses</span></div>
+        <div class="stat"><strong id="completed">0</strong><span>Completed courses</span></div>
+        <div class="stat"><strong id="percent">0%</strong><span>Overall progress</span></div>
+      </div>
+      <div id="enrolledList" style="margin-top:25px;"></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Why LearnHub?</h2>
+        <p>A simple space to turn curiosity into practical skills.</p>
+      </div>
+      <div class="grid">
+        <article class="course-content course"><h3>🎯 Learn at your pace</h3><p>Choose courses that match your goals.</p></article>
+        <article class="course-content course"><h3>📈 Track your progress</h3><p>Keep track of your learning activity.</p></article>
+        <article class="course-content course"><h3>🧠 Practice your skills</h3><p>Build knowledge through quizzes and exercises.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 LearnHub · Learn something new every day.</footer>
+
+  <script>
+    const courses = [
+      'HTML & Web Basics',
+      'JavaScript Essentials',
+      'Python Programming',
+      'SQL & Databases'
+    ];
+
+    let enrolled = [];
+    try {
+      enrolled = JSON.parse(localStorage.getItem('learnhub-courses') || '[]');
+      if (!Array.isArray(enrolled)) enrolled = [];
+    } catch (e) {
+      enrolled = [];
+    }
+
+    function save() {
+      try {
+        localStorage.setItem('learnhub-courses', JSON.stringify(enrolled));
+      } catch (e) {}
+    }
+
+    function filterCourses() {
+      const query = document.getElementById('search').value.toLowerCase().trim();
+      let visible = 0;
+      document.querySelectorAll('.course[data-search]').forEach(card => {
+        const match = (card.dataset.search + ' ' + card.innerText).toLowerCase().includes(query);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      document.getElementById('empty').style.display = visible ? 'none' : 'block';
+    }
+
+    function enroll(name) {
+      if (!enrolled.includes(name)) {
+        enrolled.push(name);
+        save();
+        renderDashboard();
+        alert('You are enrolled in ' + name + '!');
+      } else {
+        alert('You are already enrolled in ' + name + '.');
+      }
+    }
+
+    function showDashboard(event) {
+      if (event) event.preventDefault();
+      document.getElementById('dashboard').style.display = 'block';
+      renderDashboard();
+      document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderDashboard() {
+      document.getElementById('total').textContent = enrolled.length;
+      document.getElementById('completed').textContent = '0';
+      document.getElementById('percent').textContent = enrolled.length ? '0%' : '0%';
+
+      const list = document.getElementById('enrolledList');
+      list.innerHTML = '';
+
+      if (!enrolled.length) {
+        list.textContent = 'You have not enrolled in a course yet. Explore the course library to get started!';
+        return;
+      }
+
+      enrolled.forEach(name => {
+        const card = document.createElement('article');
+        card.className = 'course-content course';
+        card.style.marginBottom = '12px';
+
+        const title = document.createElement('h3');
+        title.textContent = name;
+
+        const info = document.createElement('p');
+        info.textContent = 'Course enrolled · Progress: 0%';
+
+        const bar = document.createElement('div');
+        bar.className = 'progress';
+        bar.innerHTML = '<div></div>';
+
+        card.append(title, info, bar);
+        list.appendChild(card);
+      });
+    }
+
+    renderDashboard();
+  </script>
+</body>
+</html>
